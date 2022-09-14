@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "express": "^4.18.1",
-    "mongoose": "^6.6.0",
-    "objects-to-csv-file": "^1.0.1",
-    "util.promisify": "^1.1.1"
-  }
-}
