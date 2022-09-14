@@ -96,7 +96,7 @@ const Admin = require("../models/adminModel")
 const {promisify} = require("util");
 var fs = require("fs");
 const writeFilePromise = promisify(fs.writeFile);
-const  ObjectsToCsv = require("objects-to-csv");
+const  ObjectsToCsv = require("object-to-csv");
 const uploadToCloudinary = require("../utils/cloudinaryUploader");
 
 //const { promisify } = require("util");

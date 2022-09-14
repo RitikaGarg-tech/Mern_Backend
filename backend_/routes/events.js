@@ -1,7 +1,12 @@
 const express = require('express')
 
 const{
-    addEvents
+    addEvents,
+	updateEvents,
+	deleteEvents,
+	getEvents,
+	getEvent,
+	createExelOfRegistrations,
     
 }=require("../controllers/eventsController")
 

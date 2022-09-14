@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const mongoose = require('mongoose');
+const Event =require("../models/eventsModel")
 const router = require("../routes/user");
 const generateToken = require("../utils/generateToken");
 
