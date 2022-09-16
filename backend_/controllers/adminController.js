@@ -58,7 +58,7 @@ const login = async (req, res) => {
 		}
 		const user = await Admin.findOne({ username: username });
 		if (user && (await user.matchPassword(password))) {
-			const currentToken = Admin(user._id);
+			const currentToken = generateToken(user._id);
 			const updatedTokens = [...user.tokens, currentToken];
 			user.tokens = updatedTokens;
 			await user.save();
@@ -113,7 +113,7 @@ const logout = async (req, res) => {
 		});
 	}
 };
-/*
+
 
 const logoutAll = async (req, res) => {
 	try {
@@ -137,6 +137,6 @@ const logoutAll = async (req, res) => {
 			error: `Server error${e}`,
 		});
 	}
-};*/
+};
 
-module.exports = { register, login , logout };
+module.exports = { register, login , logout, logoutAll };

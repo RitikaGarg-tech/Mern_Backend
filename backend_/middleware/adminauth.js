@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const SuperUser = require("../models/adminModel");
+const Admin = require("../models/adminModel");
 
 const superProtect = async (req, res, next) => {
 	let token;
@@ -11,7 +11,7 @@ const superProtect = async (req, res, next) => {
 			try {
 				token = req.headers.authorization.split(" ")[1];
 				const decoded = jwt.verify(token, process.env.JWT_SECRET);
-				const user = await SuperUser.findById(decoded.id).select(
+				const user = await Admin.findById(decoded.id).select(
 					"-password"
 				);
 				if (!user.tokens.includes(token)) {

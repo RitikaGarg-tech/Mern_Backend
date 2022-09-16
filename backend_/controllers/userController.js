@@ -55,17 +55,6 @@ const register = async(req,res) => {
                 error: "User with same college id already exist",
             });
         }
-        /*const user = User.register(name,
-            collegeId,
-            password,
-            year,
-            email,
-            phone,
-            image,
-            gender,
-            section,
-            branch)
-         /const hashedpassword=await User.register(email, password) */
         const user = new User({
             name,
             collegeId,
@@ -162,37 +151,34 @@ const login = async (req,res)=>{
 
 };
 
-const logout = async (req,res)=> {
-    try {
-         const user = req.user;
-         if(!user) {
-            return res.status(401).send({
-                  success: false,
-                  error:  "Not Authenticated",
-            });
-         }
-         const currentToken = req.token;
-         const tokens = user.tokens;
-         const newTokens = tokens.filter((token) => {
-            return token !== currentToken;
-         });
-         user.tokens = newTokens;
-         await user.save();
-         return res.status(200).send({
-            success: true,
-            message: "Successfully logged out",
-         });
-        } catch (e) {
-            console.log(e);
-            return res.status(500).send({
-                success: false,
-                error: `Server error${e}`,
-            });
-        }   
-         
-    };
-
-
+const logout = async (req, res) => {
+	try {
+		const user = req.user;
+		if (!user) {
+			return res.status(401).send({
+				success: false,
+				error: "Not Authenticated",
+			});
+		}
+		const currentToken = req.token;
+		const tokens = user.tokens;
+		const newTokens = tokens.filter((token) => {
+			return token !== currentToken;
+		});
+		user.tokens = newTokens;
+		await user.save();
+		return res.status(200).send({
+			success: true,
+			message: "Successfully logged out",
+		});
+	} catch (e) {
+		console.log(e);
+		return res.status(500).send({
+			success: false,
+			error: `Server error${e}`,
+		});
+	}
+};
 
    const logoutAll = async (req, res) => {
         try {
@@ -367,10 +353,10 @@ const logout = async (req,res)=> {
 module.exports={
     register,
     login,
-	logout,
+    logout,
 	logoutAll,
 	find,
 	update,
 	remove,
 	getAllEvents,
-};
+}

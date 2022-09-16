@@ -1,12 +1,15 @@
-const Events = require("../models/eventsModel");
+const Event = require("../models/eventsModel");
 const Registration = require("../models/registrationModel");
-const mongoose = require('mongoose')
+const User = require("../models/userModel");
+//const generateToken = require("../utils/generateToken")
+//const mongoose = require('mongoose')
 
 const addRegistration = async(req,res)=> {
     try{
         const user = req.user;
-        const{eventId}= req.params;
-        const event = await Events.findById(eventId)
+        const {eventId}= req.params;
+        const event = await Event.findById(eventId);
+
         if(!event){
             return res.status(404).send({
                 success:false,
@@ -59,23 +62,14 @@ const deleteRegistration = async (req, res) => {
 				error: "Select event and registration",
 			});
 		}
-		const event = await Events.findById(eventId).populate("admin", [
-			"-password",
-			"-tokens",
-		]);
+		const event = await Event.findById(eventId);
 		if (!event) {
 			return res.status(404).send({
 				success: false,
 				error: "No such event found",
 			});
 		}
-		if(!user)
-		{
-			return res.status(401).send({
-				success: false,
-				error: "Not authorized",
-			});
-		}
+		
 		const registration = await Registration.findOne({
 			_id: registrationId,
 			event: eventId,

@@ -1,11 +1,12 @@
+const Express = require('express');
 const {
-    addRegistration
-    //deleteRegistration,
+    addRegistration,
+    deleteRegistration,
 } = require("../controllers/registrationController");
+const protect = require("../middleware/auth")
+const router = Express.Router();
 
-const router = require("express").Router();
-
-router.post("/:eventId",addRegistration);
-//router.delete("/:eventId/:registerationId",deleteRegistration);
+router.post('/:eventId',protect,addRegistration);
+router.delete('/:eventId/:registrationId',protect,deleteRegistration);
 
 module.exports = router;

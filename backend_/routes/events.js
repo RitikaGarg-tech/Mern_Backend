@@ -11,14 +11,15 @@ const{
 }=require("../controllers/eventsController")
 
 const router =express.Router()
+const adminprotect=require('../middleware/adminauth.js');
 
 
 
 //GET all events
-//router.get('/', getEvents)
+router.get('/', adminprotect,getEvents)
 
 //GET a single event
-//router.get('/:id',getEvent)
+router.get('/:id',adminprotect,getEvent)
 
 //POST a new workout
 //router.post('/',createEvent)
@@ -27,7 +28,7 @@ const router =express.Router()
 
 //router.patch('/:id', updateEvent)
 
-router.post("/", addEvents)
+router.post('/', adminprotect,addEvents)
 
 module.exports=router
 

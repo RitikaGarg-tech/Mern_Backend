@@ -92,7 +92,7 @@ module.exports={
 const { events } = require("../models/eventsModel");
 const Event = require("../models/eventsModel");
 const Admin = require("../models/adminModel")
-
+ 
 const {promisify} = require("util");
 var fs = require("fs");
 const writeFilePromise = promisify(fs.writeFile);
@@ -118,19 +118,19 @@ const addEvents = async (req, res) => {
 			});
 		}
 		const { contact } = req.body;
-		if (!contact) {
+		/*if (!contact) {
 			return res.status(400).send({
 				success: false,
 				error: "Contact detail missing",
 			});
-		}
+		}*/
 		const { name: contactName, number: contactNumber } = contact;
-		if (!(contactName && contactNumber)) {
+		/*if (!(contactName && contactNumber)) {
 			return res.status(400).send({
 				success: false,
 				error: "Contact detail missing",
 			});
-		}
+		}*/
 		const { speakers } = req.body;
 		const event = new Event({
 			name,
@@ -162,7 +162,7 @@ const addEvents = async (req, res) => {
 const getEvents = async (req, res) => {
 	try {
 		const user = req.user;
-		const data = await Event.populate( 'registrations');
+		const data = user.events;
 		
 		if (!data) {
 			return res.status(404).send({
@@ -333,7 +333,7 @@ const deleteEvents = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const user = req.user;
-		const event = await Event.findById(id).populate("society",["-password" , 
+		const event = await Event.findById(id).populate("admin",["-password" , 
 	     "-tokens",
 		"-events",
 	]);

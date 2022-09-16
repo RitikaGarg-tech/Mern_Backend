@@ -7,7 +7,6 @@ const mongoose = require('mongoose')
 const eventRoutes = require('./routes/events')
 const userRoutes = require('./routes/user')
 const registrationRoutes = require('./routes/registrations')
-const user_Routes = require('./routes/user_')
 const adminRoutes = require('./routes/admin')
 const { application } = require('express')
 
@@ -21,13 +20,12 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use('/api/user_',user_Routes)
 app.use('/api/events',eventRoutes)
 
 app.use('/api/user',userRoutes)
 app.use('/api/admin',adminRoutes)
 
-app.use('./api/registrations',registrationRoutes)
+app.use('/api/registrations',registrationRoutes)
 
 mongoose.connect(process.env.MONGO_UI).then(()=>{
     app.listen(process.env.PORT, () => {

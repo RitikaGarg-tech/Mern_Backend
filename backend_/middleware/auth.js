@@ -25,6 +25,7 @@ const protect = async (req, res, next) => {
 				throw new Error("Session Expired");
 			}
 		}
+		
 		if (!token) {
 			throw new Error("Not authorized");
 		}
@@ -41,4 +42,5 @@ const protect = async (req, res, next) => {
 	}
 };
 
-module.exports = protect;
+  module.exports=protect;
+  
