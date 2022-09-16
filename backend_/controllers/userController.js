@@ -9,9 +9,6 @@ const register = async(req,res) => {
 
     
     try{
-       
-        
-
          const{
             name,
             collegeId,
@@ -308,21 +305,6 @@ const logout = async (req, res) => {
             });
         }
     };
-    /*const remove = async(req,res)=>{
-        const {id} =req.params
-    
-        if(!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(404).json({error: 'No such user'})
-        }
-    
-        const user = await User.findOneAndDelete({_id: id})
-    
-        if(!user) {
-            return res.status(400).json({error:'No such user'})
-        }
-    
-        res.status(200).json(user)
-    }*/
 
     const getAllEvents = async (req, res) => {
         try {
@@ -350,7 +332,7 @@ const logout = async (req, res) => {
     
 
 
-module.exports={
+    module.exports={
     register,
     login,
     logout,
@@ -359,4 +341,4 @@ module.exports={
 	update,
 	remove,
 	getAllEvents,
-}
+     }

@@ -75,39 +75,7 @@ const userSchema = mongoose.Schema(
     }
 )
 
-// static registration
-/*userSchema.statics.register = async function(name,
-    collegeId,
-    password,
-    year,
-    email,
-    phone,
-    image,
-    gender,
-    section,
-    branch) {
 
-    const exists = await this.findOne({email})
-
-    if (exists) {
-        throw Error('Email already in use')
-    }
-
-   const salt = await bcrypt.genSalt(10)
-   const hash = await bcrypt.hash(password, salt)
-   
-   const user = await this.create({name,
-    collegeId,
-    password:hash,
-    year,
-    email,
-    phone,
-    image,
-    gender,
-    section,
-    branch,})
-   return user
-}*/
 userSchema.methods.matchPassword = async function (enteredPassword){
     console.log(enteredPassword);
     return await bcrypt.compare(enteredPassword, this.password);
