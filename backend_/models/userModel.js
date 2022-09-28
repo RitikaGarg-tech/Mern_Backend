@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema(
             required: true,
             unique: true
         },
-        phone: {
+        number: {
             type: String,
         },
         branch: {
@@ -57,9 +57,7 @@ const userSchema = mongoose.Schema(
                 }
             },
         },
-        image: {
-            type: String,
-        },
+        
         registeredIn: [
             {
                 type: mongoose.Schema.Types.ObjectId,
@@ -77,8 +75,8 @@ const userSchema = mongoose.Schema(
 
 
 userSchema.methods.matchPassword = async function (enteredPassword){
-    console.log(enteredPassword);
-    return await bcrypt.compare(enteredPassword, this.password);
+    // return await bcrypt.compare(enteredPassword, this.password);
+    return enteredPassword===this.password
 };
 
 userSchema.pre("save", async function (next) {

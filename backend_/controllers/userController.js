@@ -13,10 +13,9 @@ const register = async(req,res) => {
             name,
             collegeId,
             password,
-            year,
+            reEnterPassword,
             email,
-            phone,
-            image,
+            number,
             gender,
             section,
             branch,
@@ -33,13 +32,25 @@ const register = async(req,res) => {
                 error: "Please enter your college Id",
             });
          }
-        if(!password){
+        if(!password && !reEnterPassword){
             return res.status(400).send({
                 success: false,
-                error: "Please enter your email",
+                error: "Please Enter Password",
+            });
+        }
+        if(password!==reEnterPassword){
+            return res.status(400).send({
+                success: false,
+                error: "Password do not match",
             });
         }
         if(!email) {
+            return res.status(400).send({
+                success: false,
+                error: "Please enter your number",
+            });
+        }
+        if(!number) {
             return res.status(400).send({
                 success: false,
                 error: "Please enter your phone number",
@@ -53,15 +64,16 @@ const register = async(req,res) => {
             });
         }
         const user = new User({
+           
+
             name,
             collegeId,
             password,
-            year,
-            image,
+            reEnterPassword,
+            email,
+            number,
             gender,
             section,
-            email,
-            phone,
             branch,
         });
       
@@ -73,13 +85,13 @@ const register = async(req,res) => {
             _id :savedUser._id,
             name:savedUser.name,
             collegeId: savedUser.collegeId,
-            year:savedUser.year,
-            image:savedUser.image,
             gender:savedUser.gender,
             section: savedUser.section,
             branch: savedUser.branch,
             email: savedUser.email,
-            phone: savedUser.phone,
+            number: savedUser.number,
+            password: savedUser.password,
+            reEnterPassword: savedUser.reEnterPassword
         },
     }); 
 }  catch (e) {
@@ -108,6 +120,7 @@ const login = async (req,res)=>{
             });
         }
         const user = await User.findOne({ collegeId: collegeId});
+        console.log(user);
         if(user && (await user.matchPassword(password))) {
             const currentToken =generateToken(user._id);
             const updatedTokens = [...user.tokens, currentToken];
@@ -119,10 +132,10 @@ const login = async (req,res)=>{
                        _id: user._id,
                        name: user.name,
                        collegeId: user.collegeId,
-                       year: user.year,
-                       image: user.image,
+                       
+                       
                        gender: user.gender,
-                       phone: user.phone,
+                       number: user.number,
                        email: user.email,
                        registeredIn: user.registeredIn,
                        token: currentToken,
