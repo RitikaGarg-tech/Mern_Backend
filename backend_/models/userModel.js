@@ -44,19 +44,24 @@ const userSchema = mongoose.Schema(
                 }
             },
         },
+        reEnterPassword:{
+            type: String,
+            require: [true, "Please re-enter the password"],
+            trim: true,
+            minlength: [5, "Min length is 5"],
+            validate(value){
+                if (value.toLowerCase().includes("password")){
+                    throw new Error("Cant containpassword");
+                }
+            },
+
+        },
         gender: {
             type:String,
             enum: ["Male", "Female", "None"],
             default: "None",
         },
-        year: {
-            type: Number,
-            validate(value){
-                if(value < 1 || value > 4) {
-                    throw new Error("Enter valid year");
-                }
-            },
-        },
+    
         
         registeredIn: [
             {
@@ -75,8 +80,8 @@ const userSchema = mongoose.Schema(
 
 
 userSchema.methods.matchPassword = async function (enteredPassword){
-    // return await bcrypt.compare(enteredPassword, this.password);
-    return enteredPassword===this.password
+    return await bcrypt.compare(enteredPassword, this.password);
+    //return enteredPassword===this.password
 };
 
 userSchema.pre("save", async function (next) {
