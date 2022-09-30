@@ -20,20 +20,20 @@ const addEvents = async (req, res) => {
 				error: "Fields missing",
 			});
 		}
-		const { contact } = req.body;
-		if (!contact) {
+		const { contactDetails } = req.body;
+		if (!contactDetails) {
 			return res.status(400).send({
 				success: false,
-				error: "Contact detail missing",
+				error: "Contact  missing",
 			});
 		}
-		const { name: contactName, number: contactNumber } = contact;
+		/*const { name: contactName, number: contactNumber } = contactDetails;
 		if (!(contactName && contactNumber)) {
 			return res.status(400).send({
 				success: false,
-				error: "Contact detail missing",
+				error: "Contact # missing",
 			});
-		}
+		}*/
 		const { speakers } = req.body;
 		const event = new Event({
 			name,
@@ -41,7 +41,7 @@ const addEvents = async (req, res) => {
 			image,
 			location,
 			dateAndTime,
-			contactDetails: contact,
+			contactDetails: contactDetails,
 			speakers,
 			cta,
 		});
